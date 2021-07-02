@@ -1,19 +1,33 @@
 <?php
-
-use Illuminate\Http\Request;
+/*
+| add(routes): api
+| refactor(routes): api
+| rm(routes): api
+*/
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::prefix('v1')->group(function () {
+    // rotas com acesso sem autenticação
 
+    Route::get('/limpar-cache', function () {
+        Artisan::call('config:cache');
+        Artisan::call('cache:clear');
+        return "Cache está limpo!";
+    })->name('limpar-cache.index');
+});
 
-Route::resource('user', 'UserController')->except(['create', 'edit']);
+Route::prefix('v1')->group(function () {
+    Route::group(['middleware' => 'auth:api'], function () { 
+    // rotas com acesso por autenticação
+     
+    });
+    Route::group(['middleware' => 'api'], function () {
+    // rotas de acesso livre  
+    Route::resource('user', 'UserController')->except(['create', 'edit']);
+    });
+});
+
 
