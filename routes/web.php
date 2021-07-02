@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
 Route::get('/', function () {
-    return view('welcome');
+     return view('home');
 });
+
+route::get('/produtos', function() {
+    return view('produtos');
+});
+
+route::get('/produtos/{nomeProduto}/comentario/{id}', function($nomeProduto, $id) {
+    echo "Comentario sobre produto: ".$id.", do produto: ".$nomeProduto;
+});
+
+// www.site.com.br/produtos
