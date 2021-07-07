@@ -27,7 +27,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->input();
-        return $data['name'];
+        $data['name'];
         $user = User::create(
             $data 
         );
@@ -53,8 +53,10 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {    
+        $data = $request->input();
+        User::findOrFail($id)->update($data);
+        return User::findOrFail($id);      
     }
 
     /**
