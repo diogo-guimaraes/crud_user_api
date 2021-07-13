@@ -27,6 +27,7 @@ Route::prefix('v1')->group(function () {
     Route::group(['middleware' => 'api'], function () {
     // rotas de acesso livre  
     Route::resource('user', 'UserController')->except(['create', 'edit']);
+    Route::resource('pessoas', 'PessoaController')->except(['create', 'edit']);
     });
 });
 
